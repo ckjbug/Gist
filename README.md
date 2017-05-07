@@ -1,3 +1,3 @@
-# WordPress
+# 编程之路
 
-> wamp+wordpress搭建网站
+> 编程路线---文档和视频教程、在线实验室
