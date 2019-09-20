@@ -4,8 +4,10 @@
 >CSharp_Util_Library类库
 >>DotNet.Utilities（整理）
 ---------
-'''
+
 C#调用CMD来执行命令
+
+'''cs
 	        //要执行的指令，如关机：shutdown -s -t 00
 	        string str = "xxx"；
 	        //开启一个新的进程用来跑CMD
@@ -24,25 +26,25 @@ C#调用CMD来执行命令
                         p.StartInfo.CreateNoWindow = true;
                         //启动程序
                         p.Start();
-
                         //向cmd窗口发送输入信息
                         p.StandardInput.WriteLine(str + "&exit");
-
                         p.StandardInput.AutoFlush = true;
-
                         //获取输出信息
                         string strOuput = p.StandardOutput.ReadToEnd();
                         //等待程序执行完退出进程
                         p.WaitForExit();
-                        p.Close();
-                      
+                        p.Close();		
+'''                      
 
 -----------------------
 
 C#实现程序(x.exe)的重启
-                        Application.Exit();
-                        System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);	
-或者使用Application.Restart();
+
+'''cs
+Application.Exit();
+System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);	
+//或者使用Application.Restart();
+'''
 
 -----------------------
 
