@@ -1,8 +1,8 @@
 # Csharp Gist
 
 > Csharp Gist代码片段
->CSharp_Util_Library类库
->>DotNet.Utilities（整理）
+> CSharp_Util_Library类库
+> DotNet.Utilities（整理）
 ---------
 
 C#调用CMD来执行命令
@@ -11,29 +11,29 @@ C#调用CMD来执行命令
 	        //要执行的指令，如关机：shutdown -s -t 00
 	        string str = "xxx"；
 	        //开启一个新的进程用来跑CMD
-                        Process p = new Process();
-                        //设置要启动的应用程序
-                        p.StartInfo.FileName = "cmd.exe";
-                        //是否使用操作系统shell启动
-                        p.StartInfo.UseShellExecute = false;
-                        // 接受来自调用程序的输入信息
-                        p.StartInfo.RedirectStandardInput = true;
-                        //输出信息
-                        p.StartInfo.RedirectStandardOutput = true;
-                        // 输出错误
-                        p.StartInfo.RedirectStandardError = true;
-                        //不显示程序窗口
-                        p.StartInfo.CreateNoWindow = true;
-                        //启动程序
-                        p.Start();
-                        //向cmd窗口发送输入信息
-                        p.StandardInput.WriteLine(str + "&exit");
-                        p.StandardInput.AutoFlush = true;
-                        //获取输出信息
-                        string strOuput = p.StandardOutput.ReadToEnd();
-                        //等待程序执行完退出进程
-                        p.WaitForExit();
-                        p.Close();		
+                Process p = new Process();
+                //设置要启动的应用程序
+                p.StartInfo.FileName = "cmd.exe";
+                //是否使用操作系统shell启动
+                p.StartInfo.UseShellExecute = false;
+                // 接受来自调用程序的输入信息
+                p.StartInfo.RedirectStandardInput = true;
+                //输出信息
+                p.StartInfo.RedirectStandardOutput = true;
+                // 输出错误
+                p.StartInfo.RedirectStandardError = true;
+                //不显示程序窗口
+                p.StartInfo.CreateNoWindow = true;
+                //启动程序
+                p.Start();
+                //向cmd窗口发送输入信息
+                p.StandardInput.WriteLine(str + "&exit");
+                p.StandardInput.AutoFlush = true;
+                //获取输出信息
+                string strOuput = p.StandardOutput.ReadToEnd();
+                //等待程序执行完退出进程
+                p.WaitForExit();
+                p.Close();		
 ```                  
 
 -----------------------
@@ -49,25 +49,32 @@ System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly
 -----------------------
 
 C#实现程序开机自动启动（通过注册表设置启动项）
+
+```cs
 using system .microsoft.win32;//一定要引用
 RegistryKey rk = Registry.LocalMachine;
 RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
 rk2.SetValue( "autorun",程序路径);
 rk2.Close();
 rk.Close();
+```
 
 -----------------------
 
 C#通过调用窗口句柄进行截屏（功能更强大）
 
+```cs
+
+```
 
 C#通过Winform程序获取Windows系统桌面截屏
-//获取主屏
-            
+
+
+```cs
+//获取主屏          
 Screen s = Screen.PrimaryScreen;
   
-//获取系统上所有显示器的截屏
-            
+//获取系统上所有显示器的截屏          
 //Screen[] screens = Screen.AllScreens;          
 //创建一个位图,将其大小设置为何屏幕大小一致,为了获取屏幕的图片
             
@@ -86,10 +93,14 @@ using (Graphics g = Graphics.FromImage(bit))
                 //释放画布
                 //g.Dispose();
             }
+```
 
 -----------------------
 
 C#使用TcpClient/TcpListener进行异步通信操作
+
+
+```cs
 public static class TcpHelper
     {
         public static async void ConnectAsTcpClient()
@@ -144,7 +155,8 @@ static void Main(string[] args)
             Console.ReadLine();
         }
 
-'''
+
+```
 
 
 
