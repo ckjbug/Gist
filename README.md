@@ -11,32 +11,32 @@
 C#调用CMD来执行命令
 
 ```cs
-	        //要执行的指令，如关机：shutdown -s -t 00
-	        string str = "xxx"；
-	        //开启一个新的进程用来跑CMD
-                Process p = new Process();
-                //设置要启动的应用程序
-                p.StartInfo.FileName = "cmd.exe";
-                //是否使用操作系统shell启动
-                p.StartInfo.UseShellExecute = false;
-                // 接受来自调用程序的输入信息
-                p.StartInfo.RedirectStandardInput = true;
-                //输出信息
-                p.StartInfo.RedirectStandardOutput = true;
-                // 输出错误
-                p.StartInfo.RedirectStandardError = true;
-                //不显示程序窗口
-                p.StartInfo.CreateNoWindow = true;
-                //启动程序
-                p.Start();
-                //向cmd窗口发送输入信息
-                p.StandardInput.WriteLine(str + "&exit");
-                p.StandardInput.AutoFlush = true;
-                //获取输出信息
-                string strOuput = p.StandardOutput.ReadToEnd();
-                //等待程序执行完退出进程
-                p.WaitForExit();
-                p.Close();		
+//要执行的指令，如关机：shutdown -s -t 00
+string str = "xxx"；
+//开启一个新的进程用来跑CMD
+Process p = new Process();
+//设置要启动的应用程序
+p.StartInfo.FileName = "cmd.exe";
+//是否使用操作系统shell启动
+p.StartInfo.UseShellExecute = false;
+// 接受来自调用程序的输入信息
+p.StartInfo.RedirectStandardInput = true;
+//输出信息
+p.StartInfo.RedirectStandardOutput = true;
+// 输出错误
+p.StartInfo.RedirectStandardError = true;
+//不显示程序窗口
+p.StartInfo.CreateNoWindow = true;
+//启动程序
+p.Start();
+//向cmd窗口发送输入信息
+p.StandardInput.WriteLine(str + "&exit");
+p.StandardInput.AutoFlush = true;
+//获取输出信息
+string strOuput = p.StandardOutput.ReadToEnd();
+//等待程序执行完退出进程
+p.WaitForExit();
+p.Close();		
 ```                  
 
 -----------------------
@@ -86,16 +86,16 @@ Bitmap bit = new Bitmap(s.Bounds.Width, s.Bounds.Height);
 //利用当前bit获取一个画布,画布已经于Graphics对象关联
             
 using (Graphics g = Graphics.FromImage(bit))
-            {
-                //将屏幕的(0,0)坐标截图内容copy到画布的(0,0)位置,尺寸到校 bit.size;
-                g.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
-                //将位图保存到D盘
-                bit.Save(@"C:\Users\Enz\Desktop\desktop.jpg");
-                //释放位图资源
-                bit.Dispose();
-                //释放画布
-                //g.Dispose();
-            }
+      {
+          //将屏幕的(0,0)坐标截图内容copy到画布的(0,0)位置,尺寸到校 bit.size;
+          g.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+          //将位图保存到D盘
+          bit.Save(@"C:\Users\Enz\Desktop\desktop.jpg");
+          //释放位图资源
+          bit.Dispose();
+          //释放画布
+          //g.Dispose();
+      }
 ```
 
 -----------------------
@@ -108,11 +108,13 @@ public static class TcpHelper
     {
         public static async void ConnectAsTcpClient()
         {
+	    //声明一个通信客户单
             using (var tcpClient = new TcpClient())
             {
                 Console.WriteLine("[Client] Connecting to server");
                 await tcpClient.ConnectAsync("127.0.0.1", 1234);
                 Console.WriteLine("[Client] Connected to server");
+		//创建一个网络流来收发数据，也可以用内存流和文件流实现
                 using (var networkStream = tcpClient.GetStream())
                 {
                     Console.WriteLine("[Client] Writing request {0}", ClientRequestString);
@@ -134,10 +136,14 @@ public static class TcpHelper
 
         public static async void StartListener()
         {
+	    //声明一个通信服务
             var tcpListener = TcpListener.Create(1234);
+	    //开始监听
             tcpListener.Start();
+	    //等待客户端连接
             var tcpClient = await tcpListener.AcceptTcpClientAsync();
             Console.WriteLine("[Server] Client has connected");
+	    //创建一个网络流来收发数据
             using (var networkStream = tcpClient.GetStream())
             {
                 var buffer = new byte[4096];
